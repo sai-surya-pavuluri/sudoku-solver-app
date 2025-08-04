@@ -20,5 +20,21 @@ A full-stack Sudoku Solver built with **React.js** frontend and **Flask** backen
 
 ---
 
-## 📂 Project Structure
+## 🚀 Running the App
+
+### 🧱 React Build (only when new changes are amended to ui)
+
+```bash
+cd ui
+npm install
+npm run build
+```
+
+### 🐍 Run Flask Server
+
+```bash
+cd main
+python app.py
+```
+
 
