@@ -2,6 +2,10 @@ from flask import Flask, request, jsonify, render_template
 import os
 import logging
 from sudoku_solver import SudokuSolver as sudoku_solver
+from flask_cors import CORS
+from sudoku_ocr_utils import extract_sudoku_puzzle
+import cv2
+import numpy as np
 
 
 logging.basicConfig(
@@ -17,6 +21,11 @@ app = Flask(
         static_folder=os.path.abspath("static"),
         static_url_path="" 
 )
+CORS(app, resources={
+    r"/solve": {"origins": "*"},
+    r"/api/upload-sudoku": {"origins": "*"}
+})
+
 
 @app.route('/')
 def index():
@@ -24,6 +33,15 @@ def index():
     Render the main page of the Sudoku solver app.
     """
     return render_template('index.html')
+
+@app.route('/api/upload-sudoku', methods=['POST'])
+def upload_sudoku():
+    file = request.files['sudoku_image']
+    npimg = np.frombuffer(file.read(), np.uint8)
+    img = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
+
+    puzzle_dict = extract_sudoku_puzzle(img)  # Returns dict like {'0,0': 5, '1,3': 7, ...}
+    return jsonify({'puzzle': puzzle_dict})
 
 @app.route('/solve', methods=['POST'])
 def solve():

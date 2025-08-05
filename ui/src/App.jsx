@@ -43,7 +43,7 @@ function App() {
     try {
       setLoading(true);
       const toastId = toast.loading("Solving the Sudoku...");
-      const response = await fetch("/solve", {
+      const response = await fetch("http://localhost:5000/solve", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -86,6 +86,39 @@ function App() {
     }
   };
 
+const handleImageUpload = async (event) => {
+  try {
+    const toastId = toast.loading("Extracting puzzle from image...");
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append("sudoku_image", file);
+
+    const response = await fetch("http://localhost:5000/api/upload-sudoku", {
+      method: "POST",
+      body: formData,
+    });
+
+    const { puzzle } = await response.json();
+
+    const newBoard = Array(9).fill().map(() => Array(9).fill(''));
+    for (const key in puzzle) {
+      const [r, c] = key.split(',').map(Number);
+      newBoard[r][c] = puzzle[key];
+    }
+
+    setBoard(newBoard);
+    toast.update(toastId, {
+      render: "Puzzle extracted successfully!",
+      type: "success",
+      isLoading: false,
+      autoClose: 2000
+    });
+  } catch (err) {
+    toast.error("Failed to extract puzzle from image. Try another one.");
+  }
+};
+
+
 
 return (
     <div className="sudoku-container">
@@ -110,6 +143,16 @@ return (
       <div className="buttons">
         <button className='reset-button' onClick={handleClear} disabled={loading}>Reset</button>
         <button className='solve-button' onClick={handleSolve} disabled={loading || isSolved}>Solve</button>
+        <label htmlFor="file-upload" className="upload-label">
+          Upload Sudoku
+        </label>
+        <input
+          id="file-upload"
+          type="file"
+          accept="image/*"
+          onChange={handleImageUpload}
+          style={{ display: "none" }}
+        />
       </div>
 
       {showConfetti && <Confetti />}
