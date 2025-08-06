@@ -51,13 +51,15 @@ h1{
 
 /* Coloring for 3x3 blocks */
 .sudoku-cell.block-a {
-  background-color: #A7C7E7;
+  background-color: #D0E7FF;
 }
+
 .sudoku-cell.block-b {
-  background-color: #FFF6B2;
+  background-color: #E0F7F4;
 }
+
 .sudoku-cell.block-c {
-  background-color: #FFD4A3;
+  background-color: #ECEFF1;
 }
 
 /* Button styles */
@@ -98,6 +100,12 @@ h1{
   color: #f44336;
   border: black 1px solid;
 }
+.upload-label:hover {
+  background-color: white;
+  color: #1976d2;
+  border: black 1px solid;
+}
+
 .solve-button:active {
   background-color: #f0f0f0;
   color: #4CAF50;
@@ -114,6 +122,11 @@ h1{
 button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+.upload-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .upload-label {

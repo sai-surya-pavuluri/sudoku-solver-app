@@ -1,5 +1,6 @@
 class SudokuSolver:
     def __init__(self, board):
+        board = [[str(cell) if cell != '' else '' for cell in row] for row in board]
         self.board = board
 
     def solve(self):

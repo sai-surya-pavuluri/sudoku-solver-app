@@ -143,8 +143,8 @@ return (
       <div className="buttons">
         <button className='reset-button' onClick={handleClear} disabled={loading}>Reset</button>
         <button className='solve-button' onClick={handleSolve} disabled={loading || isSolved}>Solve</button>
-        <label htmlFor="file-upload" className="upload-label">
-          Upload Sudoku
+        <label htmlFor="file-upload" className={`upload-label ${loading || isSolved ? "upload-disabled" : ""}`}>
+          Upload
         </label>
         <input
           id="file-upload"
@@ -152,6 +152,7 @@ return (
           accept="image/*"
           onChange={handleImageUpload}
           style={{ display: "none" }}
+          disabled={loading || isSolved}
         />
       </div>
 
