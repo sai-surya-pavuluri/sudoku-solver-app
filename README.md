@@ -46,7 +46,7 @@ Supported: Printed puzzles (e.g. snipped from websites, PDFs, etc.)
 
 ### Backend (Flask)
 ```bash
-cd backend
+cd main
 python app.py
 ```
 
@@ -59,17 +59,22 @@ pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tessera
 
 ### Frontend (React)
 ```bash
-cd frontend
+cd ui
 npm install
 npm start
 ```
-
 ---
 
-## 🧠 To Do / Improvements
+#  🧠 Workflow
 
-- Highlight cells OCR-detected vs. user input
-- Option to upload from phone camera
-- Handwritten OCR (custom CNN model)
+<em>Examples of a solved puzzle in the UI</em>
+<p align="center">
+  <img src="./main/assets/homepage.png" alt="Sudoku UI" width="400"/><br/>
+  <img src="./main/assets/puzzle_template.png" alt="Sudoku UI" width="400"/><br/>
+  <img src="./main/assets/uploaded_puzzle.png" alt="Sudoku UI" width="400"/><br/>
+  <img src="./main/assets/solved.png" alt="Sudoku UI" width="400"/>
+  <br/>
+  
+</p>
 
 ---
