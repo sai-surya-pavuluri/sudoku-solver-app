@@ -10,6 +10,7 @@ function App() {
   const [showConfetti, setShowConfetti] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isSolved, setIsSolved] = useState(false);
+  const [isEmpty, setEmpty] = useState(true);
 
   const handleInputChange = (r, c, val) => {
     if (!/^[1-9]?$/.test(val)) return;
@@ -17,6 +18,7 @@ function App() {
       row.map((cell, j) => (i === r && j === c ? val : cell))
     );
     setBoard(newBoard);
+    setEmpty(false);
   };
 
   const getBlockClass = (r, c) => {
@@ -32,6 +34,7 @@ function App() {
   const handleClear = () => {
     setBoard(Array(9).fill().map(() => Array(9).fill("")));
     setIsSolved(false);
+    setEmpty(true);
   };
 
   const triggerFireworks = () => {
@@ -107,6 +110,8 @@ const handleImageUpload = async (event) => {
     }
 
     setBoard(newBoard);
+    setEmpty(false);
+  
     toast.update(toastId, {
       render: "Puzzle extracted successfully!",
       type: "success",
@@ -142,7 +147,7 @@ return (
       </div>
       <div className="buttons">
         <button className='reset-button' onClick={handleClear} disabled={loading}>Reset</button>
-        <button className='solve-button' onClick={handleSolve} disabled={loading || isSolved}>Solve</button>
+        <button className='solve-button' onClick={handleSolve} disabled={isEmpty || loading || isSolved}>Solve</button>
         <label htmlFor="file-upload" className={`upload-label ${loading || isSolved ? "upload-disabled" : ""}`}>
           Upload
         </label>
